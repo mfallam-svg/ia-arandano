@@ -5,4 +5,4 @@ numpy==1.25.2
 Pillow==10.0.0
 python-dotenv==1.0.0
 gunicorn==21.2.0
-# Removed Azure-specific packages (not used)
+ultralytics
