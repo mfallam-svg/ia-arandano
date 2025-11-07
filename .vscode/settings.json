@@ -1,0 +1,13 @@
+{
+  // Añadir la carpeta `src` al análisis de Python para que Pylance resuelva imports como `web_app.app`
+  "python.analysis.extraPaths": [
+    "./src"
+  ],
+  // Opcional: reducir ruido mostrando sólo errores reales de importación
+  "python.analysis.diagnosticMode": "workspace"
+  ,
+  // Tratar el archivo "Procfile" como texto/dotenv para evitar que Pylance lo analice como Python
+  "files.associations": {
+    "Procfile": "dotenv"
+  }
+}

@@ -1,0 +1,123 @@
+/* Estilos específicos para móviles */
+@media (max-width: 768px) {
+    /* Ajustes generales */
+    body {
+        font-size: 16px;
+    }
+
+    /* Header y navegación */
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+
+    /* Hero section */
+    #hero-eval {
+        min-height: 80vh !important;
+    }
+
+    #hero-eval .title {
+        font-size: 2rem !important;
+    }
+
+    /* Upload section */
+    .upload-area {
+        min-height: 200px;
+        padding: 1rem;
+    }
+
+    /* Results section */
+    #results-section .card {
+        margin-bottom: 1rem;
+    }
+
+    /* History section */
+    .table-responsive {
+        margin-bottom: 1rem;
+    }
+
+    #historyTable img {
+        width: 60px !important;
+        height: 60px !important;
+    }
+
+    /* Botones y controles */
+    .btn {
+        padding: 0.5rem 1rem;
+    }
+
+    .btn-group {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    /* Modales */
+    .modal-dialog {
+        margin: 0.5rem;
+    }
+
+    /* Paginación */
+    .pagination {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    /* Footer */
+    footer {
+        text-align: center;
+    }
+
+    footer .text-md-end {
+        text-align: center !important;
+        margin-top: 1rem;
+    }
+
+    /* Mejoras de usabilidad */
+    input[type="file"] {
+        width: 100%;
+    }
+
+    .form-control, .btn {
+        font-size: 16px; /* Evita zoom en iOS */
+    }
+
+    /* Mejoras para la cámara */
+    #singleFileInput, #batchFileInput {
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        cursor: pointer;
+    }
+
+    /* Ajustes para pantallas pequeñas */
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    /* Optimizaciones de rendimiento */
+    * {
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Animaciones más suaves */
+    .reveal {
+        transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+}
+
+/* Soporte para gestos táctiles */
+@media (hover: none) {
+    .btn:active {
+        transform: scale(0.98);
+    }
+}
+
+/* Soporte para modo oscuro del sistema */
+@media (prefers-color-scheme: dark) {
+    :root {
+        color-scheme: dark;
+    }
+}

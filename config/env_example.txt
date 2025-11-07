@@ -1,0 +1,26 @@
+# Flask Configuration
+FLASK_APP=src/web_app/app.py
+FLASK_ENV=development
+SECRET_KEY=your-secret-key-here
+DEBUG=True
+
+# Upload Configuration
+MAX_CONTENT_LENGTH=16777216  # 16MB max file size
+UPLOAD_FOLDER=data/uploads
+ALLOWED_EXTENSIONS=jpg,jpeg,png,bmp,tiff
+
+# Model Configuration
+MODEL_PATH=models/weights/best_model.pth
+CONFIDENCE_THRESHOLD=0.5
+IOU_THRESHOLD=0.45
+
+# Database Configuration (if needed)
+DATABASE_URL=sqlite:///app.db
+
+# API Keys (if using external services)
+ROBOFLOW_API_KEY=your-roboflow-api-key
+GOOGLE_CLOUD_API_KEY=your-google-cloud-api-key
+
+# Logging
+LOG_LEVEL=INFO
+LOG_FILE=logs/app.log

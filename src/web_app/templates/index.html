@@ -1,0 +1,427 @@
+{% extends "base.html" %}
+
+{% block title %}IA Arandano{% endblock %}
+
+{% block content %}
+<!-- Hero Section (Adaptado al diseño solicitado) -->
+<section id="hero-eval" class="position-relative text-white py-5">
+    <style>
+        /* Scoped styles for the hero only */
+        #hero-eval {
+            background: linear-gradient(135deg, #1a4d3a 0%, #2d5a47 25%, #4a7c59 50%, #6b8e5a 75%, #8ba65c 100%);
+            min-height: 100vh;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+        #hero-eval .container { min-height: 100vh; display: flex; align-items: center; }
+        #hero-eval .floating-element {
+            position: absolute; border-radius: 50%; background: rgba(255,255,255,0.06);
+            animation: heroFloatAround 15s ease-in-out infinite;
+        }
+        #hero-eval .floating-element:nth-child(1){ width:60px; height:60px; top:15%; left:8%; animation-delay:0s; }
+        #hero-eval .floating-element:nth-child(2){ width:40px; height:40px; top:60%; right:12%; animation-delay:5s; }
+        #hero-eval .floating-element:nth-child(3){ width:80px; height:80px; bottom:15%; left:18%; animation-delay:10s; }
+        @keyframes heroFloatAround { 0%,100%{ transform:translate(0,0) rotate(0deg); opacity:.3 } 25%{ transform:translate(20px,-30px) rotate(90deg); opacity:.6 } 50%{ transform:translate(-10px,20px) rotate(180deg); opacity:.4 } 75%{ transform:translate(30px,10px) rotate(270deg); opacity:.7 } }
+
+        #hero-eval .background-particles { position:absolute; inset:0; pointer-events:none; }
+        #hero-eval .background-particles::before{ content:''; position:absolute; inset:0; background-image: radial-gradient(circle at 25% 25%, rgba(255,255,255,0.1) 1px, transparent 1px), radial-gradient(circle at 75% 75%, rgba(255,255,255,0.05) 1px, transparent 1px); background-size:100px 100px, 150px 150px; animation: heroFloat 20s ease-in-out infinite; }
+        @keyframes heroFloat { 0%,100%{ transform:translate(0,0) rotate(0deg) } 33%{ transform:translate(10px,-10px) rotate(1deg) } 66%{ transform:translate(-5px,5px) rotate(-1deg) } }
+
+        #hero-eval .title { font-size:3rem; font-weight:800; line-height:1.1; margin-bottom:1rem; text-shadow:0 4px 20px rgba(0,0,0,0.3); }
+        #hero-eval .title .highlight { background: linear-gradient(45deg, #4CAF50, #8BC34A, #CDDC39); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; animation: heroShimmer 3s ease-in-out infinite; }
+        @keyframes heroShimmer { 0%,100%{ background-position:0% 50% } 50%{ background-position:100% 50% } }
+        #hero-eval .description { font-size:1.15rem; color:rgba(255,255,255,0.92); line-height:1.6; margin-bottom:2rem; text-shadow:0 2px 10px rgba(0,0,0,0.2); }
+        #hero-eval .hero-btn { padding:1rem 1.5rem; border:none; border-radius:50px; font-weight:700; display:inline-flex; align-items:center; gap:.5rem; text-decoration:none; position:relative; overflow:hidden; transition:transform .3s ease }
+        #hero-eval .hero-btn:before { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent); transition:left .5s }
+        #hero-eval .hero-btn:hover { transform: translateY(-3px) }
+        #hero-eval .hero-btn:hover:before { left:100% }
+        #hero-eval .hero-btn-primary { background:linear-gradient(45deg,#4CAF50,#8BC34A); color:#fff; box-shadow:0 8px 25px rgba(76,175,80,.35) }
+        #hero-eval .hero-btn-secondary { background: rgba(255,255,255,0.12); color:#fff; border:2px solid rgba(255,255,255,0.35); backdrop-filter: blur(8px) }
+
+        #hero-eval .stats-panel { background: rgba(255,255,255,0.10); backdrop-filter: blur(16px); border:1px solid rgba(255,255,255,0.2); border-radius:24px; padding:2rem; box-shadow:0 20px 60px rgba(0,0,0,0.3); position:relative; overflow:hidden }
+        #hero-eval .stats-panel:before { content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%; background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%); animation: heroRotate 18s linear infinite }
+        @keyframes heroRotate { from{ transform:rotate(0deg) } to{ transform:rotate(360deg) } }
+        #hero-eval .ai-visualization { text-align:center; margin-bottom:1.5rem; position:relative; z-index:2 }
+        /* Berry bubbles replacing brain */
+        #hero-eval .berry-bubbles { display:flex; align-items:center; justify-content:center; gap:14px; margin:0 auto 1rem; }
+        #hero-eval .berry-bubble { width:74px; height:74px; border-radius:50%; position:relative; box-shadow:0 10px 30px rgba(0,0,0,0.25); animation: bubbleFloat 3s ease-in-out infinite; }
+        #hero-eval .berry-bubble::after { content:''; position:absolute; top:12px; left:16px; width:16px; height:16px; border-radius:50%; background:rgba(255,255,255,0.35); filter: blur(0.5px); }
+        #hero-eval .berry-bubble.berry-green { background: radial-gradient(circle at 30% 30%, #5bbd6d, #2f8a4b 60%, #1f5a33 100%); }
+        #hero-eval .berry-bubble.berry-red { background: radial-gradient(circle at 30% 30%, #ff6b6b, #dc3545 60%, #8a1c2b 100%); animation-delay: .2s; }
+        #hero-eval .berry-bubble.berry-blue { background: radial-gradient(circle at 30% 30%, #66a3ff, #007bff 60%, #0a3d8f 100%); animation-delay: .4s; }
+        @keyframes bubbleFloat { 0%,100%{ transform: translateY(0) } 50%{ transform: translateY(-8px) } }
+        @keyframes heroPulse { 0%,100%{ transform:scale(1) } 50%{ transform:scale(1.05) } }
+        @keyframes heroSpin { from{ transform:rotate(0deg) } to{ transform:rotate(360deg) } }
+        #hero-eval .stats-grid { display:grid; grid-template-columns: repeat(3,1fr); gap:1rem; z-index:2; position:relative }
+        #hero-eval .stat-item { text-align:center; padding:1rem; background: rgba(255,255,255,0.06); border-radius:16px; border:1px solid rgba(255,255,255,0.12); transition: all .3s ease }
+        #hero-eval .stat-item:hover { transform: translateY(-4px); background: rgba(255,255,255,0.10) }
+        #hero-eval .stat-number { font-size:1.6rem; font-weight:800; color:#fff; margin-bottom:.25rem; text-shadow:0 2px 10px rgba(0,0,0,0.25) }
+        #hero-eval .stat-label { font-size:.9rem; color: rgba(255,255,255,0.85) }
+
+        @media (max-width: 992px){ #hero-eval .title { font-size:2.4rem } #hero-eval .stats-grid { grid-template-columns: repeat(3,1fr) } }
+        @media (max-width: 768px){ #hero-eval .title { font-size:2rem } #hero-eval .stats-grid { grid-template-columns: repeat(3,1fr) } }
+    </style>
+
+    <!-- Floating background elements and particles -->
+    <div class="background-particles"></div>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+
+    <div class="container py-4">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-7">
+                <div class="content">
+                    <h1 class="title mb-3">
+                        Evaluación<br/>
+                        Inteligente de<br/>
+                        <span class="highlight">Arándanos</span>
+                    </h1>
+                    <p class="description">
+                        Sistema de IA avanzado para la evaluación automática de madurez en cultivos de arándano. Optimiza tus decisiones de cosecha con tecnología de visión computacional de última generación.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="#upload-section" class="hero-btn hero-btn-primary">
+                            <span>🚀</span> COMENZAR ANÁLISIS
+                        </a>
+                        <a href="#about-section" class="hero-btn hero-btn-secondary">
+                            <span>ℹ️</span> MÁS INFORMACIÓN
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <aside class="stats-panel">
+                    <div class="ai-visualization">
+                        <div class="berry-bubbles">
+                            <div class="berry-bubble berry-green" title="No maduro"></div>
+                            <div class="berry-bubble berry-red" title="Semimaduro"></div>
+                            <div class="berry-bubble berry-blue" title="Maduro"></div>
+                        </div>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">Precisión IA</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">24/7</div>
+                            <div class="stat-label">Disponible</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">+1000</div>
+                            <div class="stat-label">Imágenes</div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function(){
+            // Animate counters
+            function animateNumbers(){
+                const numbers = document.querySelectorAll('#hero-eval .stat-number');
+                numbers.forEach(number => {
+                    const finalValue = number.textContent;
+                    const numericValue = parseInt(finalValue.replace(/\D/g, ''));
+                    if (!isNaN(numericValue)){
+                        let current = 0; const increment = Math.max(1, Math.floor(numericValue/50));
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= numericValue){ number.textContent = finalValue; clearInterval(timer); }
+                            else {
+                                const prefix = finalValue.includes('+') ? '+' : '';
+                                const suffix = finalValue.includes('%') ? '%' : '';
+                                number.textContent = prefix + current + suffix;
+                            }
+                        }, 30);
+                    }
+                });
+            }
+            window.addEventListener('load', () => setTimeout(animateNumbers, 400));
+        })();
+    </script>
+</section>
+
+<!-- Upload Section -->
+<section id="upload-section" class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow-lg">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="mb-0">
+                            <i class="fas fa-upload me-2"></i>
+                            Análisis de Imágenes
+                        </h3>
+                    </div>
+                    <div class="card-body p-4">
+                        <!-- Upload Tabs -->
+                        <ul class="nav nav-tabs mb-4" id="uploadTabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="single-tab" data-bs-toggle="tab" 
+                                        data-bs-target="#single-upload" type="button" role="tab">
+                                    <i class="fas fa-image me-2"></i>Imagen Individual
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="batch-tab" data-bs-toggle="tab" 
+                                        data-bs-target="#batch-upload" type="button" role="tab">
+                                    <i class="fas fa-images me-2"></i>Múltiples Imágenes
+                                </button>
+                            </li>
+                        </ul>
+
+                        <!-- Tab Content -->
+                        <div class="tab-content" id="uploadTabsContent">
+                            <!-- Single Upload -->
+                            <div class="tab-pane fade show active" id="single-upload" role="tabpanel">
+                                <form id="singleUploadForm" enctype="multipart/form-data">
+                                    <div class="upload-area mb-4" id="singleUploadArea">
+                                        <div class="upload-content text-center">
+                                            <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-3"></i>
+                                            <h5>Arrastra una imagen aquí o haz clic para seleccionar</h5>
+                                            <p class="text-muted">Formatos soportados: JPG, PNG, BMP, TIFF</p>
+                                            <input type="file" id="singleFileInput" name="file" 
+                                                   accept="image/*" capture="environment" class="d-none">
+                                            <button type="button" class="btn btn-primary" onclick="document.getElementById('singleFileInput').click()">
+                                                <i class="fas fa-folder-open me-2"></i>Seleccionar Archivo
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-success btn-lg" id="singleUploadBtn">
+                                            <i class="fas fa-play me-2"></i>Analizar Imagen
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <!-- Batch Upload -->
+                            <div class="tab-pane fade" id="batch-upload" role="tabpanel">
+                                <form id="batchUploadForm" enctype="multipart/form-data">
+                                    <div class="upload-area mb-4" id="batchUploadArea">
+                                        <div class="upload-content text-center">
+                                            <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-3"></i>
+                                            <h5>Arrastra múltiples imágenes aquí o haz clic para seleccionar</h5>
+                                            <p class="text-muted">Puedes seleccionar varios archivos a la vez</p>
+                                            <input type="file" id="batchFileInput" name="files[]" 
+                                                   accept="image/*" multiple class="d-none">
+                                            <button type="button" class="btn btn-primary" onclick="document.getElementById('batchFileInput').click()">
+                                                <i class="fas fa-folder-open me-2"></i>Seleccionar Archivos
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-success btn-lg" id="batchUploadBtn">
+                                            <i class="fas fa-play me-2"></i>Analizar Lote
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Results Section -->
+<section id="results-section" class="py-5 bg-light" style="display: none;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center mb-5">
+                    <i class="fas fa-chart-bar me-2"></i>
+                    Resultados del Análisis
+                </h2>
+            </div>
+        </div>
+        
+        <div class="row">
+            <!-- Image Display -->
+            <div class="col-lg-6 mb-4">
+                <div class="card shadow">
+                    <div class="card-header">
+                        <h5><i class="fas fa-image me-2"></i>Imagen Analizada</h5>
+                    </div>
+                    <div class="card-body text-center">
+                        <img id="analyzedImage" src="" alt="Imagen analizada" class="img-fluid rounded">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analysis Results -->
+            <div class="col-lg-6 mb-4">
+                <div class="card shadow">
+                    <div class="card-header">
+                        <h5><i class="fas fa-chart-pie me-2"></i>Resumen de Análisis</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6 mb-3">
+                                <div class="text-center">
+                                    <h3 id="totalDetections" class="text-primary">0</h3>
+                                    <small class="text-muted">Arándanos Detectados</small>
+                                </div>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <div class="text-center">
+                                    <h3 id="maturityScore" class="text-success">0%</h3>
+                                    <small class="text-muted">Puntuación de Madurez</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Maturity Distribution Chart -->
+                        <div class="mt-4">
+                            <h6>Distribución de Madurez</h6>
+                            <div class="chart-container">
+                                <canvas id="maturityChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Results -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card shadow">
+                    <div class="card-header">
+                        <h5><i class="fas fa-list me-2"></i>Resultados Detallados</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="detailedResults">
+                            <!-- Results will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- History Section -->
+<section id="history-section" class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2>
+                        <i class="fas fa-history me-2"></i>
+                        Historial de Análisis
+                    </h2>
+                    <button id="exportCsvBtn" class="btn btn-success">
+                        <i class="fas fa-file-csv me-2"></i>
+                        Exportar a CSV
+                    </button>
+                </div>
+                
+                <div class="card shadow">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="historyTable">
+                                <thead>
+                                    <tr>
+                                        <th>Imagen</th>
+                                        <th>Fecha</th>
+                                        <th>Arándanos</th>
+                                        <th>Maduros</th>
+                                        <th>Semimaduros</th>
+                                        <th>No Maduros</th>
+                                        <th>Puntuación</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Se llenará dinámicamente -->
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <!-- Paginación -->
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <div class="text-muted">
+                                <span id="totalRecords">0</span> registros encontrados
+                            </div>
+                            <nav>
+                                <ul class="pagination mb-0" id="historyPagination">
+                                    <!-- Se llenará dinámicamente -->
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about-section" class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <h2><i class="fas fa-info-circle me-2"></i>Acerca del Sistema</h2>
+                <p class="lead">Tecnología de IA para agricultura de precisión</p>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow">
+                    <div class="card-body text-center">
+                        <i class="fas fa-brain fa-3x text-primary mb-3"></i>
+                        <h5>Inteligencia Artificial</h5>
+                        <p>Modelos CNN avanzados para detección precisa de arándanos y análisis de madurez.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow">
+                    <div class="card-body text-center">
+                        <i class="fas fa-eye fa-3x text-success mb-3"></i>
+                        <h5>Visión Computacional</h5>
+                        <p>Análisis de imágenes en tiempo real con detección de color y textura.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow">
+                    <div class="card-body text-center">
+                        <i class="fas fa-chart-line fa-3x text-warning mb-3"></i>
+                        <h5>Reportes Inteligentes</h5>
+                        <p>Generación automática de reportes con recomendaciones de cosecha.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Loading Modal -->
+<div class="modal fade" id="loadingModal" tabindex="-1" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center p-4">
+                <div class="spinner-border text-primary mb-3" role="status">
+                    <span class="visually-hidden">Procesando...</span>
+                </div>
+                <h5>Procesando Imagen</h5>
+                <p class="text-muted">El análisis puede tomar unos segundos...</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/results.js') }}"></script>
+{% endblock %}

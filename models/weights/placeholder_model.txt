@@ -1,0 +1,9 @@
+# Modelo placeholder para desarrollo
+# Este archivo simula un modelo entrenado
+# En producción, aquí estaría tu modelo real (.pth, .h5, etc.)
+
+MODEL_TYPE: "blueberry_detection"
+VERSION: "1.0.0"
+TRAINING_DATE: "2025-08-26"
+ACCURACY: "0.85"
+STATUS: "placeholder_for_development"
